@@ -12,4 +12,17 @@
         <servlet-name>Servlet1</servlet-name>
         <url-pattern>/abc</url-pattern>
     </servlet-mapping>
+    
+    <!-- Servlet Declaration -->
+    <servlet>
+        <servlet-name>StockTradeServlet</servlet-name>
+        <servlet-class>com.stock.StockTradeServlet</servlet-class>
+    </servlet>
+
+    <!-- Servlet Mapping -->
+    <servlet-mapping>
+        <servlet-name>StockTradeServlet</servlet-name>
+        <url-pattern>/pqr</url-pattern>
+    </servlet-mapping>
+
 </web-app>
