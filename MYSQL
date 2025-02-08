@@ -1,0 +1,62 @@
+USE market;
+
+CREATE TABLE stocks (
+    stock_id INT AUTO_INCREMENT PRIMARY KEY,
+    stock_name VARCHAR(255) NOT NULL,
+    current_price DECIMAL(10, 2) NOT NULL,
+    available_quantity INT NOT NULL
+);
+
+INSERT INTO stocks (stock_name, current_price, available_quantity)
+VALUES 
+('Apple Inc.', 175.50, 1000),
+('Tesla Inc.', 750.00, 500),
+('Microsoft Corp.', 280.00, 1200),
+('Coca-Cola Co.', 60.00, 1500),
+('Amazon.com Inc.', 3400.25, 300);
+
+SELECT * FROM stocks;
+
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    balance DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE transactions (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    stock_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    type ENUM('buy', 'sell') NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (stock_id) REFERENCES stocks(stock_id)
+);
+
+CREATE TABLE loans (
+    loan_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    loan_amount DECIMAL(10, 2) NOT NULL,
+    interest_rate DECIMAL(5, 2) NOT NULL,
+    balance_due DECIMAL(10, 2) NOT NULL,
+    due_date DATE NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE stock_price_history (
+    stock_id INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (stock_id, timestamp),
+    FOREIGN KEY (stock_id) REFERENCES stocks(stock_id)
+);
+
+USE market;
+SELECT * FROM loans;
+SELECT * FROM stocks;
+SELECT * FROM transactions;
+SELECT * FROM users;
